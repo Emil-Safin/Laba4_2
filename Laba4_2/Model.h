@@ -24,55 +24,60 @@ public:
 	int GetC() {
 		return C;
 	}
-	/*void handler1() {
+	void handlerA() {
 		if (A > C)
 			C = A;
+		if (A > B)
+			B = A;
+		if (C < B)
+		    B = C;
+	}
+	void handlerC() {
 		if (C < A)
 			A = C;
 		if (A > B)
 			B = A;
 		if (C < B)
-		    B = C;
-	}*/
-	void manager(NumericUpDown ^a, NumericUpDown ^b, NumericUpDown ^c, TrackBar ^a1, TrackBar^ b1, TrackBar^ c1){
+			B = C;
+	}
+	void handlerB() {
+		if (A > B)
+			B = A;
+		if (C < B)
+			B = C;
+	}
 
-		a->Maximum = C;
-		c->Minimum = A;
-		b->Maximum = C;
-		b->Minimum = A;
+	void manager(NumericUpDown ^a, NumericUpDown ^b, NumericUpDown ^c, TrackBar ^a1, TrackBar^ b1, TrackBar^ c1, TextBox^ a2, TextBox^ b2, TextBox^ c2){
+		a->Value = A;
+		c->Value = C;
+		b->Value = B;
+		
+		a1->Value = A;
+		c1->Value = C;
+		b1->Value = B;
 
-		a1->Maximum = C;
-		c1->Minimum = A;
-		b1->Maximum = C;
-		b1->Minimum = A;
+		a2->Text = A.ToString();
+		c2->Text = C.ToString();
+		b2->Text = B.ToString();
 
 	}
 
-	void SetA(int A, NumericUpDown^ a, TrackBar^ a1, TextBox^ a3) {
-		if (A <= C) {
+	void SetA(int A) {
+		if (A <= 100 && A >= 0) {
 			this->A = A;
-			a->Value = A;
-			a1->Value = A;
-			a3->Text = A.ToString();
+			handlerA();
 		}
-		//this->handler1();
 	}
-	void SetC(int C, NumericUpDown^ a, TrackBar^ a1, TextBox^ a3) {
-		if (C >= A) {
+	void SetC(int C) {
+		if (C <= 100 && C >= 0){
 			this->C = C;
-			a->Value = C;
-			a1->Value = C;
-			a3->Text = C.ToString();
-			//this->handler1();
-		}
+		handlerC();
 	}
-	void SetB(int B, NumericUpDown^ a, TrackBar^ a1, TextBox^ a3) {
-		if (B >= A && B <= C) {
+	}
+	void SetB(int B) {
+		if (B <= 100 && B >= 0) {
 			this->B = B;
-			a->Value = B;
-			a1->Value = B;
-			a3->Text = B.ToString();
-			//this->handler1();
+			handlerB();
 		}
 	}
 

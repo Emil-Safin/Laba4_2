@@ -285,47 +285,58 @@ namespace Laba42 {
 		if (numericA->Text != "") {
 			/*textA->Text = (numericA->Value).ToString();
 			trackA->Value = Convert::ToInt32(numericA->Value);*/
-			model.SetA(Convert::ToInt32(numericA->Value), numericA, trackA, textA);
-			model.manager(numericA, numericB, numericC, trackA, trackB, trackC);
+			model.SetA(Convert::ToInt32(numericA->Value));
+			model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
 		}
 		
     }
     private: System::Void textA_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (textA->Text != "") {
-			model.SetA(Convert::ToInt32(textA->Text), numericA, trackA, textA);
-			
+			model.SetA(Convert::ToInt32(textA->Text));
+			model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+
 		}
     }
     private: System::Void trackA_Scroll(System::Object^ sender, System::EventArgs^ e) {
-		model.SetA(Convert::ToInt32(trackA->Value), numericA, trackA, textA);
+		model.SetA(Convert::ToInt32(trackA->Value));
+		model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+
 	}
 	private: System::Void numericB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		 if (numericB->Text != "") {
-			 model.SetB(Convert::ToInt32(numericB->Value), numericB, trackB, textB);
-			 model.manager(numericA, numericB, numericC, trackA, trackB, trackC);
+			 model.SetB(Convert::ToInt32(numericB->Value));
+			 model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
 		 }
 	}
 	private: System::Void textB_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (textB->Text != "") {
-			model.SetB(Convert::ToInt32(textB->Text), numericB, trackB, textB);
+			model.SetB(Convert::ToInt32(textB->Text));
+			model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+
 		}
 	}
 	private: System::Void trackB_Scroll(System::Object^ sender, System::EventArgs^ e) {
-		model.SetB(Convert::ToInt32(trackB->Value), numericB, trackB, textB);
+		model.SetB(Convert::ToInt32(trackB->Value));
+		model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+
 	}
 	private: System::Void numericC_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		 if (numericC->Text != "") {
-			 model.SetC(Convert::ToInt32(numericC->Value), numericC, trackC, textC);
-			 model.manager(numericA, numericB, numericC, trackA, trackB, trackC);
+			 model.SetC(Convert::ToInt32(numericC->Value));
+			 model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
 		 }
 	}
 	private: System::Void textC_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (textC->Text != "") {
-			model.SetC(Convert::ToInt32(textC->Text), numericC, trackC, textC);
+			model.SetC(Convert::ToInt32(textC->Text));
+			model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+
 		}
 	}
 	private: System::Void trackC_Scroll(System::Object^ sender, System::EventArgs^ e) {
-		model.SetC(Convert::ToInt32(trackC->Value), numericC, trackC, textC);
+		model.SetC(Convert::ToInt32(trackC->Value));
+		model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+
 	}
 };
 }
