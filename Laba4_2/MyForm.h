@@ -155,6 +155,7 @@ namespace Laba42 {
 			// numericA
 			// 
 			this->numericA->Location = System::Drawing::Point(67, 183);
+			this->numericA->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
 			this->numericA->Name = L"numericA";
 			this->numericA->Size = System::Drawing::Size(141, 22);
 			this->numericA->TabIndex = 5;
@@ -163,6 +164,7 @@ namespace Laba42 {
 			// numericB
 			// 
 			this->numericB->Location = System::Drawing::Point(320, 183);
+			this->numericB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
 			this->numericB->Name = L"numericB";
 			this->numericB->Size = System::Drawing::Size(141, 22);
 			this->numericB->TabIndex = 6;
@@ -171,6 +173,7 @@ namespace Laba42 {
 			// numericC
 			// 
 			this->numericC->Location = System::Drawing::Point(562, 183);
+			this->numericC->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
 			this->numericC->Name = L"numericC";
 			this->numericC->Size = System::Drawing::Size(141, 22);
 			this->numericC->TabIndex = 7;
@@ -267,76 +270,74 @@ namespace Laba42 {
 
 		}
 #pragma endregion
-		Model model;
+	Model^ model;
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		//int file = Convert::ToInt32(System::IO::File::ReadAllText("check1.txt"));
-			array<String^>^ string_mas = (System::IO::File::ReadAllText("check1.txt"))->Split(' ', false);
-			textC->Text = string_mas[2];
-			textB->Text = string_mas[1];
-			textA->Text = string_mas[0];
-			/*model.SetC(Convert::ToInt32(string_mas[2]), numericC, trackC, textC);
-			model.manager(numericA, numericB, numericC, trackA, trackB, trackC);
-			model.SetA(Convert::ToInt32(string_mas[0]), numericA, trackA, textA);
-			model.SetB(Convert::ToInt32(string_mas[1]), numericB, trackB, textB);*/
+		model = gcnew Model();
+		model->observers += gcnew System::EventHandler(this, &MyForm::UpdateDataA);
+		model->observers += gcnew System::EventHandler(this, &MyForm::UpdateDataB);
+		model->observers += gcnew System::EventHandler(this, &MyForm::UpdateDataC);
+		model->UpdateData();
 			
 	}
-		
     private: System::Void numericA_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (numericA->Text != "") {
-			/*textA->Text = (numericA->Value).ToString();
-			trackA->Value = Convert::ToInt32(numericA->Value);*/
-			model.SetA(Convert::ToInt32(numericA->Value));
-			model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+			model->SetA(Convert::ToInt32(numericA->Value));
 		}
 		
     }
     private: System::Void textA_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (textA->Text != "") {
-			model.SetA(Convert::ToInt32(textA->Text));
-			model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
-
+			model->SetA(Convert::ToInt32(textA->Text));
 		}
     }
     private: System::Void trackA_Scroll(System::Object^ sender, System::EventArgs^ e) {
-		model.SetA(Convert::ToInt32(trackA->Value));
-		model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
-
+		model->SetA(Convert::ToInt32(trackA->Value));
 	}
 	private: System::Void numericB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		 if (numericB->Text != "") {
-			 model.SetB(Convert::ToInt32(numericB->Value));
-			 model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+			 model->SetB(Convert::ToInt32(numericB->Value));
 		 }
 	}
 	private: System::Void textB_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (textB->Text != "") {
-			model.SetB(Convert::ToInt32(textB->Text));
-			model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
-
+			model->SetB(Convert::ToInt32(textB->Text));
 		}
 	}
 	private: System::Void trackB_Scroll(System::Object^ sender, System::EventArgs^ e) {
-		model.SetB(Convert::ToInt32(trackB->Value));
-		model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+		model->SetB(Convert::ToInt32(trackB->Value));
 
 	}
 	private: System::Void numericC_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		 if (numericC->Text != "") {
-			 model.SetC(Convert::ToInt32(numericC->Value));
-			 model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+			 model->SetC(Convert::ToInt32(numericC->Value));
 		 }
 	}
 	private: System::Void textC_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (textC->Text != "") {
-			model.SetC(Convert::ToInt32(textC->Text));
-			model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
-
+			model->SetC(Convert::ToInt32(textC->Text));
 		}
 	}
 	private: System::Void trackC_Scroll(System::Object^ sender, System::EventArgs^ e) {
-		model.SetC(Convert::ToInt32(trackC->Value));
-		model.manager(numericA, numericB, numericC, trackA, trackB, trackC, textA, textB, textC);
+		model->SetC(Convert::ToInt32(trackC->Value));
+	}
 
+	void UpdateDataA(System::Object^ sender, System::EventArgs^ e) {
+		Model^ sender1 = (Model^)sender;
+		numericA->Value = sender1->GetA();
+		textA->Text = sender1->GetA().ToString();
+		trackA->Value = sender1->GetA();
+	}
+	void UpdateDataB(System::Object^ sender, System::EventArgs^ e) {
+		Model^ sender1 = (Model^)sender;
+		numericB->Value = sender1->GetB();
+		textB->Text = sender1->GetB().ToString();
+		trackB->Value = sender1->GetB();
+	}
+	void UpdateDataC(System::Object^ sender, System::EventArgs^ e) {
+		Model^ sender1 = (Model^)sender;
+		numericC->Value = sender1->GetC();
+		textC->Text = sender1->GetC().ToString();
+		trackC->Value = sender1->GetC();
 	}
 };
 }
